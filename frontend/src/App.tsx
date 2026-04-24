@@ -1,9 +1,17 @@
+import { Routes, Route } from 'react-router-dom';
+import { Layout } from '@/components/Layout';
+import { EmployeesPage } from '@/pages/EmployeesPage';
+import { InsightsPage } from '@/pages/InsightsPage';
+
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
-      <h1 className="text-2xl font-bold text-center p-8">Salary Management</h1>
-    </div>
-  )
+    <Layout>
+      <Routes>
+        <Route path="/" element={<EmployeesPage />} />
+        <Route path="/insights" element={<InsightsPage />} />
+      </Routes>
+    </Layout>
+  );
 }
 
-export default App
+export default App;
