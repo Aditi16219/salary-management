@@ -3,13 +3,14 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.database import Base, engine
 from app.models import employee  # noqa: F401 — registers model with Base
-from app.routes import employees
+from app.routes import employees, insights
 
 app = FastAPI(title="Salary Management API", version="1.0.0")
 
 Base.metadata.create_all(bind=engine)
 
 app.include_router(employees.router)
+app.include_router(insights.router)
 
 app.add_middleware(
     CORSMiddleware,
