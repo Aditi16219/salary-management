@@ -8,8 +8,11 @@ import sys
 import time
 from pathlib import Path
 
-BACKEND_DIR = Path(__file__).parent.parent / "backend"
 SEED_DIR = Path(__file__).parent
+
+# Support both local (repo/backend) and Docker (/app) layouts
+_local_backend = Path(__file__).parent.parent / "backend"
+BACKEND_DIR = _local_backend if _local_backend.exists() else Path("/app")
 
 sys.path.insert(0, str(BACKEND_DIR))
 
