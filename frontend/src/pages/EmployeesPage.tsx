@@ -5,6 +5,7 @@ import type { Employee } from '@/types/employee';
 import { EmployeeFilters } from '@/components/employees/EmployeeFilters';
 import { EmployeeTable } from '@/components/employees/EmployeeTable';
 import { Pagination } from '@/components/ui/Pagination';
+import { ConfirmDialog } from '@/components/ui/ConfirmDialog';
 
 const PAGE_SIZE = 20;
 
@@ -17,6 +18,7 @@ export function EmployeesPage() {
   const [search, setSearch] = useState('');
   const [country, setCountry] = useState('');
   const [department, setDepartment] = useState('');
+  const [deleteId, setDeleteId] = useState<string | null>(null);
 
   useEffect(() => {
     let cancelled = false;
@@ -50,10 +52,12 @@ export function EmployeesPage() {
   const handleCountry = (v: string) => { setCountry(v); setPage(1); };
   const handleDepartment = (v: string) => { setDepartment(v); setPage(1); };
 
-  const handleDelete = async (id: string) => {
-    await employeesApi.remove(id);
-    setEmployees((prev) => prev.filter((e) => e.id !== id));
+  const executeDelete = async () => {
+    if (!deleteId) return;
+    await employeesApi.remove(deleteId);
+    setEmployees((prev) => prev.filter((e) => e.id !== deleteId));
     setTotal((prev) => prev - 1);
+    setDeleteId(null);
   };
 
   return (
@@ -88,8 +92,17 @@ export function EmployeesPage() {
         employees={employees}
         loading={loading}
         onEdit={(id) => navigate(`/employees/${id}/edit`)}
-        onDelete={handleDelete}
+        onDelete={setDeleteId}
       />
+
+      {deleteId && (
+        <ConfirmDialog
+          title="Delete Employee"
+          message="Are you sure you want to delete this employee? This cannot be undone."
+          onConfirm={executeDelete}
+          onCancel={() => setDeleteId(null)}
+        />
+      )}
 
       {!loading && total > PAGE_SIZE && (
         <Pagination

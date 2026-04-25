@@ -5,7 +5,7 @@ interface Props {
   employees: Employee[];
   loading: boolean;
   onEdit: (id: string) => void;
-  onDelete: (id: string) => Promise<void>;
+  onDelete: (id: string) => void;
 }
 
 const formatSalary = (salary: number) =>
