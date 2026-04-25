@@ -11,6 +11,14 @@ jest.mock('@/api/employees', () => ({
   employeesApi: { list: jest.fn(), remove: jest.fn() },
 }));
 
+jest.mock('@/api/meta', () => ({
+  metaApi: {
+    countries: jest.fn().mockResolvedValue({ data: [] }),
+    departments: jest.fn().mockResolvedValue({ data: [] }),
+    jobTitles: jest.fn().mockResolvedValue({ data: [] }),
+  },
+}));
+
 const mockEmployee = {
   id: '1',
   full_name: 'Jane Doe',
