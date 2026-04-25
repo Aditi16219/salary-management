@@ -96,6 +96,7 @@ npm run test:run
 ### Salary Insights Dashboard
 - Global summary: total headcount, avg salary, highest salary, top country
 - Salary by country: min / avg / max per country
+- **Avg salary by job title in a country** — interactive country selector updates table instantly
 - Department summary: headcount and salary range per department
 - Top 10 earners across the organisation
 

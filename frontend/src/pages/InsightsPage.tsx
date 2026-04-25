@@ -1,8 +1,9 @@
 import { useEffect, useState } from 'react';
 import { insightsApi } from '@/api/insights';
-import type { CountrySalaryStats, DepartmentSummary, TopEarner, CountryHeadcount } from '@/types/insights';
+import type { CountrySalaryStats, DepartmentSummary, JobTitleSalaryStats, TopEarner, CountryHeadcount } from '@/types/insights';
 import { StatCard } from '@/components/ui/StatCard';
 import { SalaryByCountryTable } from '@/components/insights/SalaryByCountryTable';
+import { SalaryByJobTitleTable } from '@/components/insights/SalaryByJobTitleTable';
 import { DepartmentSummaryTable } from '@/components/insights/DepartmentSummaryTable';
 import { TopEarnersTable } from '@/components/insights/TopEarnersTable';
 
@@ -16,6 +17,9 @@ export function InsightsPage() {
   const [headcount, setHeadcount] = useState<CountryHeadcount[]>([]);
   const [loading, setLoading] = useState(true);
 
+  const [jobTitleCountry, setJobTitleCountry] = useState('');
+  const [jobTitleStats, setJobTitleStats] = useState<JobTitleSalaryStats[]>([]);
+
   useEffect(() => {
     Promise.all([
       insightsApi.salaryByCountry(),
@@ -28,8 +32,17 @@ export function InsightsPage() {
       setTopEarners(t.data);
       setHeadcount(h.data);
       setLoading(false);
+      // default to top country by headcount
+      if (h.data.length > 0) {
+        setJobTitleCountry(h.data[0].country);
+      }
     });
   }, []);
+
+  useEffect(() => {
+    if (!jobTitleCountry) return;
+    insightsApi.salaryByJobTitle(jobTitleCountry).then(({ data }) => setJobTitleStats(data));
+  }, [jobTitleCountry]);
 
   if (loading) {
     return <div className="text-gray-500 py-8">Loading insights…</div>;
@@ -41,6 +54,7 @@ export function InsightsPage() {
     : 0;
   const globalMax = countryStats.length ? Math.max(...countryStats.map((r) => r.max_salary)) : 0;
   const topCountry = headcount[0]?.country ?? '—';
+  const countries = countryStats.map((r) => r.country);
 
   return (
     <div className="space-y-8">
@@ -57,10 +71,18 @@ export function InsightsPage() {
         <StatCard label="Top Country" value={topCountry} sub={`${headcount[0]?.employee_count.toLocaleString() ?? 0} employees`} color="sky" />
       </div>
 
-      {/* Country breakdown */}
+      {/* Salary by country */}
       <SalaryByCountryTable rows={countryStats} />
 
-      {/* Bottom two tables */}
+      {/* Salary by job title in a country */}
+      <SalaryByJobTitleTable
+        rows={jobTitleStats}
+        country={jobTitleCountry}
+        countries={countries}
+        onCountryChange={setJobTitleCountry}
+      />
+
+      {/* Department summary + top earners */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <DepartmentSummaryTable rows={deptStats} />
         <TopEarnersTable rows={topEarners} />

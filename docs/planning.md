@@ -69,6 +69,7 @@ Post-plan additions (based on testing the live app):
 - Server-side column sorting (salary, hire date)
 - Indigo/blue colour theme
 - Email and hire date columns in table
+- "Avg salary by job title in a country" section added to Insights UI (was in backend API from the start but missing from the dashboard — caught during requirements review)
 
 ---
 
