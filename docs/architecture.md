@@ -66,8 +66,8 @@ safe because no FK constraints reference employees).
 App
 ├── Layout (nav)
 ├── EmployeesPage
-│   ├── EmployeeFilters
-│   ├── EmployeeTable
+│   ├── EmployeeFilters (search, country, department, job title dropdowns)
+│   ├── EmployeeTable   (sortable by salary / hire date)
 │   │   └── ConfirmDialog (delete confirmation)
 │   └── Pagination
 ├── AddEmployeePage → EmployeeForm
@@ -75,6 +75,7 @@ App
 └── InsightsPage
     ├── StatCard ×4
     ├── SalaryByCountryTable
+    ├── SalaryByJobTitleTable (interactive country selector)
     ├── DepartmentSummaryTable
     └── TopEarnersTable
 ```
@@ -107,6 +108,19 @@ Result: **0.28s total** for 10,000 rows on SQLite.
 
 Key: bulk `executemany` via SQLAlchemy `text()` with a list of dicts is ~100×
 faster than individual ORM `session.add()` calls.
+
+---
+
+## Deployment
+
+The app is fully containerised via Docker Compose:
+
+```
+docker-compose up --build   ← starts backend + frontend
+docker-compose exec backend python /seed/seed.py  ← seeds 10k employees
+```
+
+The seed script auto-detects its environment — uses `../backend` locally and `/app` inside Docker. SQLite database is persisted via a Docker volume mount (`./data`).
 
 ---
 
