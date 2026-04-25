@@ -7,6 +7,7 @@ services:
       - "8000:8000"
     volumes:
       - ./data:/app/data
+      - ./seed:/seed
     environment:
       - DATABASE_URL=sqlite:////app/data/salary.db
 
