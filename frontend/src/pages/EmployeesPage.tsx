@@ -64,16 +64,16 @@ export function EmployeesPage() {
     <div>
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h2 className="text-2xl font-bold text-gray-900">Employees</h2>
+          <h2 className="text-2xl font-bold text-indigo-900">Employees</h2>
           {!loading && (
-            <p className="text-sm text-gray-500 mt-1">
+            <p className="text-sm text-indigo-400 mt-1">
               {total.toLocaleString()} total employee{total !== 1 ? 's' : ''}
             </p>
           )}
         </div>
         <button
           onClick={() => navigate('/employees/new')}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors"
+          className="bg-indigo-600 text-white px-4 py-2 rounded-lg text-sm font-medium hover:bg-indigo-700 transition-colors shadow-sm"
         >
           Add Employee
         </button>

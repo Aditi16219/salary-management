@@ -34,12 +34,12 @@ export function EmployeeTable({ employees, loading, onEdit, onDelete }: Props) {
   return (
     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
       <table className="w-full text-sm">
-        <thead className="bg-gray-50 border-b border-gray-200">
+        <thead className="bg-indigo-50 border-b border-indigo-100">
           <tr>
             {['Name', 'Email', 'Job Title', 'Department', 'Country', 'Salary', 'Type', 'Hire Date', ''].map((h) => (
               <th
                 key={h}
-                className={`px-4 py-3 font-medium text-gray-600 ${h === 'Salary' ? 'text-right' : 'text-left'}`}
+                className={`px-4 py-3 font-semibold text-indigo-700 text-xs uppercase tracking-wide ${h === 'Salary' ? 'text-right' : 'text-left'}`}
               >
                 {h}
               </th>
@@ -56,7 +56,13 @@ export function EmployeeTable({ employees, loading, onEdit, onDelete }: Props) {
               <td className="px-4 py-3 text-gray-600 whitespace-nowrap">{emp.country}</td>
               <td className="px-4 py-3 text-right text-gray-900">{formatSalary(emp.salary)}</td>
               <td className="px-4 py-3">
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700 whitespace-nowrap">
+                <span className={`inline-flex items-center px-2 py-0.5 rounded text-xs font-medium whitespace-nowrap ${
+                  emp.employment_type === 'full_time'
+                    ? 'bg-green-100 text-green-700'
+                    : emp.employment_type === 'part_time'
+                    ? 'bg-yellow-100 text-yellow-700'
+                    : 'bg-blue-100 text-blue-700'
+                }`}>
                   {formatType(emp.employment_type)}
                 </span>
               </td>

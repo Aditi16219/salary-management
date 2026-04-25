@@ -13,11 +13,11 @@ export function AddEmployeePage() {
 
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="mb-6">
-        <h2 className="text-2xl font-bold text-gray-900">Add Employee</h2>
-        <p className="text-sm text-gray-500 mt-1">Fill in the details to add a new employee.</p>
+      <div className="mb-6 pb-4 border-b border-indigo-100">
+        <h2 className="text-2xl font-bold text-indigo-900">Add Employee</h2>
+        <p className="text-sm text-indigo-400 mt-1">Fill in the details to add a new employee.</p>
       </div>
-      <div className="bg-white rounded-lg border border-gray-200 p-6">
+      <div className="bg-white rounded-xl border border-indigo-100 shadow-sm p-6">
         <EmployeeForm submitLabel="Add Employee" onSubmit={handleSubmit} onCancel={() => navigate('/')} />
       </div>
     </div>

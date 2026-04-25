@@ -45,16 +45,16 @@ export function InsightsPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h2 className="text-2xl font-bold text-gray-900">Insights</h2>
-        <p className="text-sm text-gray-500 mt-1">Salary analytics across your organization.</p>
+        <h2 className="text-2xl font-bold text-indigo-900">Insights</h2>
+        <p className="text-sm text-indigo-400 mt-1">Salary analytics across your organization.</p>
       </div>
 
       {/* Summary cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <StatCard label="Total Employees" value={totalEmployees.toLocaleString()} />
-        <StatCard label="Global Avg Salary" value={fmt(allAvg)} />
-        <StatCard label="Highest Salary" value={fmt(globalMax)} />
-        <StatCard label="Top Country" value={topCountry} sub={`${headcount[0]?.employee_count.toLocaleString() ?? 0} employees`} />
+        <StatCard label="Total Employees" value={totalEmployees.toLocaleString()} color="indigo" />
+        <StatCard label="Global Avg Salary" value={fmt(allAvg)} color="blue" />
+        <StatCard label="Highest Salary" value={fmt(globalMax)} color="violet" />
+        <StatCard label="Top Country" value={topCountry} sub={`${headcount[0]?.employee_count.toLocaleString() ?? 0} employees`} color="sky" />
       </div>
 
       {/* Country breakdown */}

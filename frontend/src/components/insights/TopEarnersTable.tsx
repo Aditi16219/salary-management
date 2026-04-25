@@ -6,14 +6,14 @@ const fmt = (n: number) =>
 export function TopEarnersTable({ rows }: { rows: TopEarner[] }) {
   return (
     <div className="bg-white rounded-lg border border-gray-200 overflow-hidden">
-      <div className="px-4 py-3 border-b border-gray-100">
-        <h3 className="font-semibold text-gray-800 text-sm">Top Earners</h3>
+      <div className="px-4 py-3 border-b border-violet-100 bg-violet-50">
+        <h3 className="font-semibold text-violet-800 text-sm">Top Earners</h3>
       </div>
       <table className="w-full text-sm">
         <thead className="bg-gray-50 border-b border-gray-100">
           <tr>
             {['#', 'Name', 'Job Title', 'Department', 'Country', 'Salary'].map((h) => (
-              <th key={h} className={`px-4 py-2 font-medium text-gray-500 ${h === 'Salary' ? 'text-right' : 'text-left'}`}>{h}</th>
+              <th key={h} className={`px-4 py-2 font-semibold text-violet-600 text-xs uppercase tracking-wide ${h === 'Salary' ? 'text-right' : 'text-left'}`}>{h}</th>
             ))}
           </tr>
         </thead>

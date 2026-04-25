@@ -32,14 +32,14 @@ export function EmployeeFilters({
           placeholder="Search by name, email, or job title..."
           value={search}
           onChange={(e) => onSearchChange(e.target.value)}
-          className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full pl-9 pr-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400"
         />
       </div>
 
       <select
         value={country}
         onChange={(e) => onCountryChange(e.target.value)}
-        className="w-48 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+        className="w-48 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400 bg-white"
       >
         <option value="">All Countries</option>
         {countries.map((c) => (
@@ -50,7 +50,7 @@ export function EmployeeFilters({
       <select
         value={department}
         onChange={(e) => onDepartmentChange(e.target.value)}
-        className="w-48 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 bg-white"
+        className="w-48 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400 bg-white"
       >
         <option value="">All Departments</option>
         {departments.map((d) => (
