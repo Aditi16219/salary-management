@@ -185,17 +185,26 @@ salary-management/
 │   │   ├── services/        # Business logic layer
 │   │   ├── routes/          # FastAPI routers (employees, insights, meta)
 │   │   └── utils/           # Seed data generator
-│   └── tests/               # 36 pytest tests
+│   ├── tests/               # 36 pytest tests
+│   ├── Dockerfile
+│   └── requirements.txt
 ├── frontend/
-│   └── src/
-│       ├── api/             # Typed axios API client
-│       ├── components/      # Reusable UI components
-│       ├── pages/           # Route-level page components
-│       ├── types/           # TypeScript interfaces
-│       └── test/            # 22 Jest tests
+│   ├── src/
+│   │   ├── api/             # Typed axios API client
+│   │   ├── components/      # Reusable UI components
+│   │   ├── pages/           # Route-level page components
+│   │   ├── types/           # TypeScript interfaces
+│   │   └── test/            # 22 Jest tests
+│   └── Dockerfile
 ├── seed/
 │   ├── seed.py              # Bulk-insert seed script
 │   ├── first_names.txt
 │   └── last_names.txt
-└── docker-compose.yml
+├── docs/
+│   ├── planning.md          # Planning notes and design decisions
+│   ├── architecture.md      # Architecture, trade-offs, performance
+│   └── ai-usage.md          # AI tool usage and prompts
+├── .gitignore
+├── docker-compose.yml
+└── README.md
 ```
