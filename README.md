@@ -61,6 +61,8 @@ Seed 10,000 employees (run after containers are up):
 docker-compose exec backend python /seed/seed.py
 ```
 
+> The seed script auto-detects whether it is running inside Docker (`/app`) or locally (`../backend`) and adjusts its path accordingly.
+
 ### Option B — Local development
 
 **Backend**

@@ -20,6 +20,7 @@ This project was built using **Claude Code** (Anthropic's CLI agent) throughout 
 - Node 16 / Vite 5 crypto incompatibility — worked through iteratively with Claude diagnosing the root cause (Vite 5 requires `globalThis.crypto` which isn't available in Node 16.14 without a flag)
 - SQLite in-memory thread issue in FastAPI tests — Claude identified the need for `StaticPool`
 - PostCSS `export default` → `module.exports` for Node 16 CommonJS compatibility
+- Seed script Docker path resolution — script used `../backend` relative path which doesn't exist inside the container; fixed to fall back to `/app` in Docker
 
 ### UI iteration
 - After seeing the running app, asked Claude to add features not in the original plan: dropdowns for filters, column sorting, colour theme
