@@ -87,9 +87,11 @@ npm run test:run
 - Add, view, edit, and delete employees
 - Fields: full name, email, job title, department, country, salary, hire date, employment type
 - Search by name, email, or job title
-- Filter by country and department
+- Filter by country, department, and job title (populated from live data)
+- Sort by salary or hire date (ascending / descending) — server-side across all records
 - Paginated table (20 per page)
 - Soft delete (employees are deactivated, not removed)
+- Color-coded employment type badges (Full Time · Part Time · Contract)
 
 ### Salary Insights Dashboard
 - Global summary: total headcount, avg salary, highest salary, top country
@@ -111,7 +113,7 @@ Base URL: `http://localhost:8000`
 
 | Method | Endpoint | Description |
 |---|---|---|
-| GET | `/employees` | List employees (paginated, filterable) |
+| GET | `/employees` | List employees (paginated, filterable, sortable) |
 | POST | `/employees` | Create employee |
 | GET | `/employees/{id}` | Get employee |
 | PUT | `/employees/{id}` | Update employee |
@@ -121,6 +123,22 @@ Base URL: `http://localhost:8000`
 | GET | `/insights/headcount-by-country` | Employee count per country |
 | GET | `/insights/department-summary` | Salary stats per department |
 | GET | `/insights/top-earners` | Top N earners |
+| GET | `/meta/countries` | Distinct countries from active employees |
+| GET | `/meta/departments` | Distinct departments from active employees |
+| GET | `/meta/job-titles` | Distinct job titles from active employees |
+
+### Query params for `GET /employees`
+
+| Param | Default | Description |
+|---|---|---|
+| `page` | 1 | Page number |
+| `page_size` | 20 | Results per page (max 100) |
+| `search` | — | Search name, email, or job title |
+| `country` | — | Filter by exact country |
+| `department` | — | Filter by exact department |
+| `job_title` | — | Filter by exact job title |
+| `sort_by` | `full_name` | Column to sort (`salary`, `hire_date`, `full_name`, `country`, `job_title`) |
+| `sort_order` | `asc` | `asc` or `desc` |
 
 Interactive docs: http://localhost:8000/docs
 
@@ -135,7 +153,7 @@ salary-management/
 │   │   ├── models/          # SQLAlchemy models
 │   │   ├── schemas/         # Pydantic request/response schemas
 │   │   ├── services/        # Business logic layer
-│   │   ├── routes/          # FastAPI routers
+│   │   ├── routes/          # FastAPI routers (employees, insights, meta)
 │   │   └── utils/           # Seed data generator
 │   └── tests/               # 36 pytest tests
 ├── frontend/

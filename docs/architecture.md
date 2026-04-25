@@ -37,6 +37,14 @@ The `employees` table has:
 - Index on `job_title` — used by job-title filter
 - Composite index on `(country, job_title)` — used by salary-by-jobtitle endpoint
 
+### Sorting
+
+Server-side sorting is applied before pagination so results are globally ordered across all 10k records, not just the current page. Supported columns: `salary`, `hire_date`, `full_name`, `country`, `job_title`. The `sort_by` value is validated against a whitelist dict to prevent injection.
+
+### Meta endpoints
+
+`/meta/countries`, `/meta/departments`, `/meta/job-titles` return distinct values from active employees. These power the filter dropdowns in the UI and are always in sync with the actual data — no hardcoded lists.
+
 ### Soft delete
 
 Employees are never removed from the database. `is_active = False` marks
