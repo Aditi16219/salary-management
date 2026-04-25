@@ -6,21 +6,25 @@ interface Props {
   search: string;
   country: string;
   department: string;
+  jobTitle: string;
   onSearchChange: (v: string) => void;
   onCountryChange: (v: string) => void;
   onDepartmentChange: (v: string) => void;
+  onJobTitleChange: (v: string) => void;
 }
 
 export function EmployeeFilters({
-  search, country, department,
-  onSearchChange, onCountryChange, onDepartmentChange,
+  search, country, department, jobTitle,
+  onSearchChange, onCountryChange, onDepartmentChange, onJobTitleChange,
 }: Props) {
   const [countries, setCountries] = useState<string[]>([]);
   const [departments, setDepartments] = useState<string[]>([]);
+  const [jobTitles, setJobTitles] = useState<string[]>([]);
 
   useEffect(() => {
     metaApi.countries().then(({ data }) => setCountries(data));
     metaApi.departments().then(({ data }) => setDepartments(data));
+    metaApi.jobTitles().then(({ data }) => setJobTitles(data));
   }, []);
 
   return (
@@ -39,23 +43,28 @@ export function EmployeeFilters({
       <select
         value={country}
         onChange={(e) => onCountryChange(e.target.value)}
-        className="w-48 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400 bg-white"
+        className="w-44 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400 bg-white"
       >
         <option value="">All Countries</option>
-        {countries.map((c) => (
-          <option key={c} value={c}>{c}</option>
-        ))}
+        {countries.map((c) => <option key={c} value={c}>{c}</option>)}
       </select>
 
       <select
         value={department}
         onChange={(e) => onDepartmentChange(e.target.value)}
-        className="w-48 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400 bg-white"
+        className="w-44 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400 bg-white"
       >
         <option value="">All Departments</option>
-        {departments.map((d) => (
-          <option key={d} value={d}>{d}</option>
-        ))}
+        {departments.map((d) => <option key={d} value={d}>{d}</option>)}
+      </select>
+
+      <select
+        value={jobTitle}
+        onChange={(e) => onJobTitleChange(e.target.value)}
+        className="w-48 px-3 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-400 bg-white"
+      >
+        <option value="">All Job Titles</option>
+        {jobTitles.map((j) => <option key={j} value={j}>{j}</option>)}
       </select>
     </div>
   );

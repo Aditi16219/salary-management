@@ -28,3 +28,14 @@ def get_departments(db: Session = Depends(get_db)):
         .all()
     )
     return [r[0] for r in rows]
+
+
+@router.get("/job-titles")
+def get_job_titles(db: Session = Depends(get_db)):
+    rows = (
+        db.query(distinct(Employee.job_title))
+        .filter(Employee.is_active == True)
+        .order_by(Employee.job_title)
+        .all()
+    )
+    return [r[0] for r in rows]

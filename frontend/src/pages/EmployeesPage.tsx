@@ -18,7 +18,10 @@ export function EmployeesPage() {
   const [search, setSearch] = useState('');
   const [country, setCountry] = useState('');
   const [department, setDepartment] = useState('');
+  const [jobTitle, setJobTitle] = useState('');
   const [deleteId, setDeleteId] = useState<string | null>(null);
+  const [sortBy, setSortBy] = useState('full_name');
+  const [sortOrder, setSortOrder] = useState<'asc' | 'desc'>('asc');
 
   useEffect(() => {
     let cancelled = false;
@@ -31,6 +34,9 @@ export function EmployeesPage() {
         ...(search && { search }),
         ...(country && { country }),
         ...(department && { department }),
+        ...(jobTitle && { job_title: jobTitle }),
+        sort_by: sortBy,
+        sort_order: sortOrder,
       })
       .then(({ data }) => {
         if (!cancelled) {
@@ -46,11 +52,22 @@ export function EmployeesPage() {
     return () => {
       cancelled = true;
     };
-  }, [page, search, country, department]);
+  }, [page, search, country, department, jobTitle, sortBy, sortOrder]);
+
+  const handleSort = (col: string) => {
+    if (sortBy === col) {
+      setSortOrder((prev) => (prev === 'asc' ? 'desc' : 'asc'));
+    } else {
+      setSortBy(col);
+      setSortOrder('asc');
+    }
+    setPage(1);
+  };
 
   const handleSearch = (v: string) => { setSearch(v); setPage(1); };
   const handleCountry = (v: string) => { setCountry(v); setPage(1); };
   const handleDepartment = (v: string) => { setDepartment(v); setPage(1); };
+  const handleJobTitle = (v: string) => { setJobTitle(v); setPage(1); };
 
   const executeDelete = async () => {
     if (!deleteId) return;
@@ -83,14 +100,19 @@ export function EmployeesPage() {
         search={search}
         country={country}
         department={department}
+        jobTitle={jobTitle}
         onSearchChange={handleSearch}
         onCountryChange={handleCountry}
         onDepartmentChange={handleDepartment}
+        onJobTitleChange={handleJobTitle}
       />
 
       <EmployeeTable
         employees={employees}
         loading={loading}
+        sortBy={sortBy}
+        sortOrder={sortOrder}
+        onSort={handleSort}
         onEdit={(id) => navigate(`/employees/${id}/edit`)}
         onDelete={setDeleteId}
       />

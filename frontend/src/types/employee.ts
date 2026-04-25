@@ -42,4 +42,6 @@ export interface EmployeeListParams {
   job_title?: string;
   department?: string;
   search?: string;
+  sort_by?: string;
+  sort_order?: 'asc' | 'desc';
 }

@@ -1,6 +1,6 @@
 from typing import Optional
 
-from sqlalchemy import or_
+from sqlalchemy import or_, asc, desc
 from sqlalchemy.orm import Session
 
 from app.models.employee import Employee
@@ -23,6 +23,15 @@ def get_employee(db: Session, employee_id: str) -> Optional[Employee]:
     )
 
 
+SORTABLE_COLUMNS = {
+    "full_name": Employee.full_name,
+    "salary": Employee.salary,
+    "hire_date": Employee.hire_date,
+    "country": Employee.country,
+    "job_title": Employee.job_title,
+}
+
+
 def list_employees(
     db: Session,
     page: int = 1,
@@ -31,6 +40,8 @@ def list_employees(
     job_title: Optional[str] = None,
     department: Optional[str] = None,
     search: Optional[str] = None,
+    sort_by: str = "full_name",
+    sort_order: str = "asc",
 ) -> tuple:
     query = db.query(Employee).filter(Employee.is_active == True)
 
@@ -48,6 +59,9 @@ def list_employees(
                 Employee.job_title.ilike(f"%{search}%"),
             )
         )
+
+    sort_col = SORTABLE_COLUMNS.get(sort_by, Employee.full_name)
+    query = query.order_by(desc(sort_col) if sort_order == "desc" else asc(sort_col))
 
     total = query.count()
     items = query.offset((page - 1) * page_size).limit(page_size).all()

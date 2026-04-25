@@ -33,6 +33,8 @@ def list_employees(
     job_title: Optional[str] = None,
     department: Optional[str] = None,
     search: Optional[str] = None,
+    sort_by: str = "full_name",
+    sort_order: str = "asc",
     db: Session = Depends(get_db),
 ):
     items, total = employee_service.list_employees(
@@ -43,6 +45,8 @@ def list_employees(
         job_title=job_title,
         department=department,
         search=search,
+        sort_by=sort_by,
+        sort_order=sort_order,
     )
     return EmployeeListResponse(items=items, total=total, page=page, page_size=page_size)
 
