@@ -58,7 +58,7 @@ export function EmployeeTable({ employees, loading, sortBy, sortOrder, onSort, o
               <th
                 key={col.label}
                 onClick={() => col.sortable && onSort(col.key)}
-                className={`px-4 py-3 font-semibold text-indigo-700 text-xs uppercase tracking-wide ${
+                className={`px-4 py-3 font-semibold text-indigo-700 text-xs uppercase tracking-wide whitespace-nowrap ${
                   col.right ? 'text-right' : 'text-left'
                 } ${col.sortable ? 'cursor-pointer hover:text-indigo-900 select-none' : ''}`}
               >
