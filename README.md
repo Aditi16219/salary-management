@@ -16,6 +16,37 @@ A full-stack salary management tool for HR managers. Manage 10,000+ employees, v
 
 ---
 
+## Demo
+
+📹 **Video demo:** _[Link to be added after recording]_
+
+The demo covers: employee list with search/filter/sort, add/edit/delete, and the insights dashboard.
+
+---
+
+## Deployment
+
+The application is fully containerised via Docker Compose and can be deployed on any machine or cloud VM with Docker installed.
+
+```bash
+docker-compose up --build
+```
+
+This starts:
+- **Frontend** at http://localhost:3000
+- **Backend API** at http://localhost:8000
+- **API docs (Swagger)** at http://localhost:8000/docs
+
+To deploy on a cloud VM (e.g. AWS EC2, DigitalOcean):
+1. Install Docker + docker-compose on the VM
+2. Clone the repo
+3. Run `docker-compose up --build -d`
+4. Access via the VM's public IP
+
+> **Database note:** SQLite is used for simplicity. For a multi-user production deployment, swap `DATABASE_URL` to point at a PostgreSQL instance — no code changes required, only the connection string.
+
+---
+
 ## Quick Start
 
 ### Option A — Docker (recommended)
@@ -23,10 +54,6 @@ A full-stack salary management tool for HR managers. Manage 10,000+ employees, v
 ```bash
 docker-compose up --build
 ```
-
-- Frontend: http://localhost:3000
-- Backend API: http://localhost:8000
-- API docs: http://localhost:8000/docs
 
 Seed 10,000 employees (run after containers are up):
 
