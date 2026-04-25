@@ -36,7 +36,7 @@ export function EmployeeTable({ employees, loading, onEdit, onDelete }: Props) {
       <table className="w-full text-sm">
         <thead className="bg-gray-50 border-b border-gray-200">
           <tr>
-            {['Name', 'Job Title', 'Department', 'Country', 'Salary', 'Type', ''].map((h) => (
+            {['Name', 'Email', 'Job Title', 'Department', 'Country', 'Salary', 'Type', 'Hire Date', ''].map((h) => (
               <th
                 key={h}
                 className={`px-4 py-3 font-medium text-gray-600 ${h === 'Salary' ? 'text-right' : 'text-left'}`}
@@ -50,15 +50,17 @@ export function EmployeeTable({ employees, loading, onEdit, onDelete }: Props) {
           {employees.map((emp) => (
             <tr key={emp.id} className="hover:bg-gray-50">
               <td className="px-4 py-3 font-medium text-gray-900">{emp.full_name}</td>
-              <td className="px-4 py-3 text-gray-600">{emp.job_title}</td>
-              <td className="px-4 py-3 text-gray-600">{emp.department}</td>
-              <td className="px-4 py-3 text-gray-600">{emp.country}</td>
+              <td className="px-4 py-3 text-gray-500 text-xs">{emp.email}</td>
+              <td className="px-4 py-3 text-gray-600 whitespace-nowrap">{emp.job_title}</td>
+              <td className="px-4 py-3 text-gray-600 whitespace-nowrap">{emp.department}</td>
+              <td className="px-4 py-3 text-gray-600 whitespace-nowrap">{emp.country}</td>
               <td className="px-4 py-3 text-right text-gray-900">{formatSalary(emp.salary)}</td>
               <td className="px-4 py-3">
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700">
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700 whitespace-nowrap">
                   {formatType(emp.employment_type)}
                 </span>
               </td>
+              <td className="px-4 py-3 text-gray-600 whitespace-nowrap">{emp.hire_date}</td>
               <td className="px-4 py-3">
                 <div className="flex items-center gap-2 justify-end">
                   <button
